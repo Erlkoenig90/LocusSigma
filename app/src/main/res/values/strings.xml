@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Locus Map Sigma Export</string>
+    <string name="activity_name">SIGMA RIDE</string>
+    <string name="start_msg">Perform track export from Locus Map by opening a track in Locus, tapping the share icon, and selecting SIGMA RIDE.</string>
+</resources>
