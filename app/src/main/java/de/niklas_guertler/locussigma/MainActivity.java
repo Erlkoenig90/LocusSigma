@@ -61,7 +61,7 @@ public class MainActivity extends Activity {
     }
 
     private void sendToSigma(Uri file) {
-        ComponentName comp = new ComponentName("com.sigmasport.link2", "com.sigmasport.link2.ui.routes.RoutesActivity");
+        ComponentName comp = new ComponentName("com.sigmasport.link2", "com.sigmasport.link2.ui.FileImportActivity");
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setComponent(comp);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
