@@ -27,6 +27,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <provider
+            android:name=".GpxFileProvider"
+            android:authorities="de.niklas_guertler.locussigma.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" />
     </application>
 
 
