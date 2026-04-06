@@ -5,6 +5,7 @@ plugins {
 android {
     namespace 'de.niklas_guertler.locussigma'
     compileSdk 36
+    enableKotlin = false
 
     defaultConfig {
         applicationId "de.niklas_guertler.locussigma"
