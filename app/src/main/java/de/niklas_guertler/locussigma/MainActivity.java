@@ -1,12 +1,16 @@
 package de.niklas_guertler.locussigma;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Xml;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -46,6 +50,7 @@ public class MainActivity extends Activity {
     private static Intent prepareTrackInFormatIntent(String action, String locusPackageName, Long trackId, FileFormat format, String formatExtra) {
         Intent intent = new Intent(action);
         intent.setPackage(locusPackageName);
+        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS | Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY);
         intent.putExtra("trackId", trackId);
         intent.putExtra("format", format.name().toLowerCase());
         intent.putExtra("formatExtra", formatExtra);
@@ -60,6 +65,10 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ActionBar bar = getActionBar();
+        if (bar != null)
+            bar.hide();
+
         Intent intent = getIntent();
         if (isIntentTrackTools(intent)) {
             Long trackId = getItemId(intent);
@@ -68,6 +77,8 @@ public class MainActivity extends Activity {
             startActivityForResult(prepareTrackInFormatIntent(
                     ACTION_GET_TRACK_AS_FILE,
                     packageName, trackId, FileFormat.GPX), REQ_CODE);
+        } else {
+            showError(R.string.startfrom_err_msg);
         }
     }
 
@@ -137,7 +148,8 @@ public class MainActivity extends Activity {
              OutputStream out = new FileOutputStream(outFile)) {
             removeWptElements(in, out);
         }
-        return Uri.parse("content://de.niklas_guertler.locussigma.provider/" + outFile.getName());
+        return Uri.parse("content://" + GpxFileProvider.AUTHORITY + "/" + outFile.getName());
+
     }
 
     private void sendToSigma(Uri sourceUri) {
@@ -152,11 +164,17 @@ public class MainActivity extends Activity {
             intent.setDataAndType(cleanUri, "application/gpx+xml");
 //            Log.i ("MainActivity", "Sending to SIGMA: " + cleanUri.toString());
             startActivity(intent);
+            finish();
         } catch (IOException | XmlPullParserException e) {
+            showError(R.string.proc_track_err);
             Log.e(TAG, "sendToSigma: failed to process GPX", e);
-            Toast.makeText(this, "Process unsuccessful", Toast.LENGTH_SHORT).show();
+        } catch (ActivityNotFoundException e) {
+            showError (R.string.sigma_not_found_err);
+            Log.e(TAG, "sendToSigma: failed to export GPX", e);
+        } catch (Exception e) {
+            showError (R.string.unknown_err);
+            Log.e(TAG, "sendToSigma: Unknown error", e);
         }
-        finish();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -164,11 +182,15 @@ public class MainActivity extends Activity {
             if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                 sendToSigma(data.getData());
             } else {
-                Toast.makeText(this, "Process unsuccessful", Toast.LENGTH_SHORT).show();
-                finish();
+                showError(R.string.get_track_err);
             }
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void showError (Integer msgResId) {
+        ((TextView) findViewById(R.id.status_msg)).setText(msgResId);
+        findViewById(R.id.progressBar).setVisibility (View.INVISIBLE);
     }
 }

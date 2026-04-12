@@ -58,4 +58,6 @@ public class GpxFileProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         return 0;
     }
+
+    public static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
 }

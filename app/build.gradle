@@ -25,6 +25,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_10
         targetCompatibility JavaVersion.VERSION_1_10
     }
+
+    buildFeatures {
+        buildConfig true
+    }
 }
 
 dependencies {
