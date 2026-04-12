@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="status_msg">Route wird übertragen\n\nWenn keine automatische Weiterleitung zur SIGMA RIDE App erfolgt, ist etwas schief gelaufen.</string>
+    <string name="sigma_not_found_err">Fehler: SIGMA RIDE App nicht gefunden</string>
+    <string name="get_track_err">Fehler: Abfragen der Routen-Daten aus Locus Map fehlgeschlagen</string>
+    <string name="unknown_err">Fehler: Unbekannter Fehler beim Exportieren der Daten</string>
+    <string name="proc_track_err">Fehler: Routen-Daten konnten nicht verarbeitet werden</string>
+    <string name="startfrom_err_msg">Fehler: Anscheinend wurde diese App nicht aus Locus Map heraus gestartet</string>
+    <string name="start_hint">Um eine Route nach SIGMA RIDE zu exportieren, bitte die gewünschte Route in Locus Map auswählen, das \"Teilen\"-Icon antippen, und SIGMA RIDE auswählen.</string>
+</resources>
