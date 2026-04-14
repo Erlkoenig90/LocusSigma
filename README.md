@@ -5,7 +5,10 @@ both of which is cumbersome as you have to locate the file, particularly if you 
 new route.
 
 Usage:
-- Install [Locus Map](https://www.locusmap.app/), [SIGMA RIDE](https://sigmasport.com/product/ride-app/) and the LocusSigma app.
+- Install LocusSigma:
+  - [Download APK file](https://github.com/Erlkoenig90/LocusSigma/releases) directly or
+  - Install from [Play Store](https://play.google.com/store/apps/details?id=de.niklas_guertler.locussigma)
+- Install [Locus Map](https://www.locusmap.app/) and [SIGMA RIDE](https://sigmasport.com/product/ride-app/)
 - In Locus Map, select a track (from the map or Tracks & Routes manager) and tap the 'share' button
 - Select `SIGMA RIDE`.
 - The track will be automatically imported into SIGMA RIDE and can be directly sent to a connected device.
